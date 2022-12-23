@@ -1,6 +1,9 @@
 ## HashiCorp-related training courses, projects, and book
 
-This repo is intended to supplement training courses and external projects related to HashiCorp training and community-based engagement. It is not affiliated with HashiCorp and should not be treated as such. Content shared here is targeted for students looking for additional content or content referenced in material created for educational purposes.
+This repo is intended to supplement training courses and external projects related to HashiCorp training and
+community-based engagement. It is not affiliated with HashiCorp and should not be treated as such.
+Content shared here is targeted for students looking for additional content or content referenced in material
+created for educational purposes.
 
 Check out my profile on GitHub at [btk.me/btk](btk.me/btk)
 
@@ -39,4 +42,5 @@ Check out my profile on GitHub at [btk.me/btk](btk.me/btk)
 | 10 | [Getting Started with HashiCorp Consul](https://btk.me/c) | FALL2022 | Nov 30th |
 | 11 | [Building Automated Machine Images using HashiCorp Packer](https://btk.me/p) | FALL2022 | Nov 30th |
 
-Please feel free to reach through [Twitter](https://twitter.com/btkrausen) or [LinkedIn](https://www.linkedin.com/in/bryan-krausen-5ab8794/) for questions or comments.
+Please feel free to reach through [Twitter](https://twitter.com/btkrausen) or
+ [LinkedIn](https://www.linkedin.com/in/bryan-krausen-5ab8794/) for questions or comments.

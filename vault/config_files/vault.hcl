@@ -1,3 +1,4 @@
+# https://developer.hashicorp.com/vault/docs/configuration#storage
 storage "consul" {
   address = "127.0.0.1:8500"
   path    = "vault/"
@@ -11,8 +12,13 @@ listener "tcp" {
  tls_key_file = "/etc/vault.d/cert.key"
  tls_disable_client_certs = "true"
 }
+# https://developer.hashicorp.com/vault/docs/configuration#seal
+# https://developer.hashicorp.com/vault/docs/configuration/seal/awskms
 seal "awskms" {
   region = "us-east-1"
+  # https://developer.hashicorp.com/vault/docs/configuration/seal/awskms#kms_key_id
+  # If Vault lives in the same account that KMS key created --> Just necessary the key
+  # else --> All whole ARN
   kms_key_id = "12345678-abcd-1234-abcd-123456789101",
   endpoint = "example.kms.us-east-1.vpce.amazonaws.com"
 }
