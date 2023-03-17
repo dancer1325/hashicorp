@@ -17,3 +17,4 @@ Build AMI in AWS with Vault (downloaded locally)via Packer.
     * Move unzipped vault to another path
   * `cd /usr/local/bin`
     * Navigate to that path
+  * `vault server`
