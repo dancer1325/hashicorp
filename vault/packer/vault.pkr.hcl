@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "vault_zip" {
   type    = string
-  default = "C:\\Users\\btkra\\Downloads\\vault_1.7.1_linux_amd64.zip"
+  default = "C:\\Users\\btkra\\Downloads\\vault_1.7.1_linux_amd64.zip"  # Local absolute path in which we download vault
 }
 
 variable "vpc_id" {
@@ -20,7 +20,7 @@ variable "subnet_id" {
 
 data "amazon-ami" "amazon-linux-2" {
   filters = {
-    name                = "amzn2-ami-hvm-2.*-x86_64-gp2"
+    name                = "amzn2-ami-hvm-2.*-x86_64-gp2"    # One of the existing Linux AMI name in the marketplace
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
@@ -52,14 +52,18 @@ source "amazon-ebs" "amazon-ebs-amazonlinux-2" {
   vpc_id                      = var.vpc_id
 }
 
+# https://developer.hashicorp.com/packer/docs/terminology#builds
+# https://developer.hashicorp.com/packer/tutorials/aws-get-started/aws-get-started-build-image
 build {
   sources = ["source.amazon-ebs.amazon-ebs-amazonlinux-2"]
 
+  # https://developer.hashicorp.com/packer/docs/provisioners/file
   provisioner "file" {
     destination = "/tmp/vault.zip"
     source      = var.vault_zip
   }
 
+  # https://developer.hashicorp.com/packer/docs/provisioners/file
   provisioner "file" {
     destination = "/tmp"
     source      = "files/"
