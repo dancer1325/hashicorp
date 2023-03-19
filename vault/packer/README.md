@@ -19,7 +19,7 @@ Build AMI in AWS with Vault (downloaded locally)via Packer.
     * Navigate to that path
   * `vault server`
 * Create a 'vault.service'
-  * `cd /etc/systemd/system`
+  * `cd /etc/systemd/system`  /   `cd /lib/systemd/system`
     * Navigate to this path in which to place 'vault.service'
 * Create the Vault configuration file
 * `sudo systemctl start vault`
@@ -31,5 +31,6 @@ Build AMI in AWS with Vault (downloaded locally)via Packer.
 ## Notes
 * `sudo journalctl -u vault`
   * Check additional logs by the user vault (the one running vault service)
-  * 
-
+* `ls -l`
+  * Output's format: 'drwxr-xr-x 2 OwnerUser OwnerGroup 4096 CreationDate ./ '
+    * Allow getting OwnerUser and OwnerGroup
