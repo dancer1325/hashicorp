@@ -1,7 +1,11 @@
 # https://developer.hashicorp.com/vault/docs/configuration#storage
+# https://developer.hashicorp.com/vault/docs/configuration/storage/consul
 storage "consul" {
+  # Machine with it's port in which by default Consul runs
   address = "127.0.0.1:8500"
+  # Path in Consul's node to store the data
   path    = "vault/"
+  # Consul ACL token
   token   = "1a2b3c4d-1234-abdc-1234-1a2b3c4d5e6a"
 }
 listener "tcp" {
