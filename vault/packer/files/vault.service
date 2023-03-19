@@ -3,11 +3,13 @@ Description="HashiCorp Vault - A tool for managing secrets"
 Documentation=https://www.vaultproject.io/docs/
 Requires=network-online.target
 After=network-online.target
+# ConditionFileNotEmpty         Unnecessary to define it
 ConditionFileNotEmpty=/etc/vault.d/vault.hcl
 StartLimitIntervalSec=60
 StartLimitBurst=3
 
 [Service]
+# Next 2 entries are to create a new user to run the service, different to root user
 User=vault
 Group=vault
 ProtectSystem=full
@@ -19,6 +21,7 @@ AmbientCapabilities=CAP_IPC_LOCK
 Capabilities=CAP_IPC_LOCK+ep
 CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
 NoNewPrivileges=yes
+# Instructions which are going to be executed, running the service
 ExecStart=/usr/local/bin/vault server -config=/etc/vault.d/vault.hcl
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process

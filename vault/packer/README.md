@@ -18,3 +18,18 @@ Build AMI in AWS with Vault (downloaded locally)via Packer.
   * `cd /usr/local/bin`
     * Navigate to that path
   * `vault server`
+* Create a 'vault.service'
+  * `cd /etc/systemd/system`
+    * Navigate to this path in which to place 'vault.service'
+* Create the Vault configuration file
+* `sudo systemctl start vault`
+  * Run the vault service
+* `systemctl status vault`
+  * Check that Vault is running
+
+
+## Notes
+* `sudo journalctl -u vault`
+  * Check additional logs by the user vault (the one running vault service)
+  * 
+
