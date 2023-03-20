@@ -23,6 +23,8 @@ seal "awskms" {
   kms_key_id = "12345678-abcd-1234-abcd-123456789101",
   endpoint = "example.kms.us-east-1.vpce.amazonaws.com"
 }
+# https://developer.hashicorp.com/vault/docs/configuration#high-availability-parameters
+# HA parameters
 api_addr = "https://vault-us-east-1.example.com:8200"
 cluster_addr = " https://node-a-us-east-1.example.com:8201"
 cluster_name = "vault-prod-us-east-1"

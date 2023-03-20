@@ -22,5 +22,7 @@
   * Sample configuration for the consul client, running locally in the Vault node
 * 'consul-node.json'
   * Sample configuration for the consul node
-* vault operator raft join https://LeaderNodePath:8200
+* `vault operator raft join https://LeaderNodePath:8200` 
   * manually join to the raft Vault cluster
+* `vault operator raft list-peers`
+  * list members of the raft Vault  cluster
