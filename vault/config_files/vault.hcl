@@ -1,7 +1,7 @@
 # https://developer.hashicorp.com/vault/docs/configuration#storage
 # https://developer.hashicorp.com/vault/docs/configuration/storage/consul
 storage "consul" {
-  # Machine with it's port in which by default Consul runs
+  # Machine with it's port in which by default Consul runs, since it's an external storage
   address = "127.0.0.1:8500"
   # Path in Consul's node to store the data
   path    = "vault/"
