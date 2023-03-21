@@ -33,6 +33,8 @@
 * Read
   * `vault read auth/approle/role/alfredo/role-id`
     * Read alfredo role's role-id
+  * `vault read auth/okta/config`
+    * Read okta configuration
 
 * Write
   * `vault write auth/userpass/users/alfredo password=toledano policies=kv-policy`
@@ -52,3 +54,9 @@
     * Generate a secret-id for the alfredo role
   * `vault write auth/approle/login role_id=RoleIdPreviouslyGenerated secret_id=SecretIdPreviouslyGenerated`
     * Login in Vault, using role_id (with _, different to - for generating) and secret_id (with _, different to - for generating)
+  * `vault write auth/okta/config base_url="okta.com" org_name="guaperas" api_token="OktaTokenCreated"`
+    * Configure okta authentication.
+      * "base_url" is normally okta.com
+      * "org_name" is different for each organization, and it's displayed in your okta account
+  * `vault write auth/okta/users/YourAccountRelatedToOkta policies=alfredoOktaPolicy`
+    * Create alfredo user related to the okta auth with the policy alfredoOktaPolicy
