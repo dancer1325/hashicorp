@@ -1,5 +1,5 @@
 # AppRole Auth Method
-## Enable it
+## 1.Enable it
 POST http://localhost:8200/v1/sys/auth/approle
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 
-## Set desired set of policies
+## 2.Set desired set of policies
 POST http://localhost:8200/v1/auth/approle/role/my-role
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
@@ -21,7 +21,7 @@ Content-Type: application/json
 
 ###
 
-## Get the role id
+## 3.Get the role id
 GET http://localhost:8200/v1/auth/approle/role/my-role/role-id
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
@@ -31,7 +31,7 @@ Content-Type: application/json
 %}
 ###
 
-## Create a new secret under the role
+## 4.Create a new secret under the role
 POST http://localhost:8200/v1/auth/approle/role/my-role/secret-id
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
@@ -41,7 +41,7 @@ Content-Type: application/json
 %}
 ###
 
-## Authenticate
+## 5.Authenticate
 ## TODO: Fix it
 POST http://localhost:8200/v1/auth/approle/login
 Content-Type: application/json
@@ -53,7 +53,7 @@ Content-Type: application/json
 ###
 
 # Secret engine
-## Create a secret using KV version1 named "creds"
+## 1.Create a secret using KV version1 named "creds"
 POST http://localhost:8200/v1/secret/data/creds
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
@@ -63,8 +63,73 @@ Content-Type: application/json
 }
 ###
 
-## Get a secret
+## 2.Get a secret
 GET http://localhost:8200/v1/secret/data/creds
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
+###
 
+# UserPass Auth Method
+## 1.Enable it
+POST http://localhost:8200/v1/sys/auth/userpass
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "type": "userpass"
+}
+###
+
+## 2.Create / Update user
+POST http://localhost:8200/v1/auth/userpass/users/alfredo
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "password": "toledano"
+}
+###
+
+## 3.Login
+POST http://localhost:8200/v1/auth/userpass/login/alfredo
+#X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "password": "toledano"
+}
+###
+
+## 4.Create / Update user, passing policy
+POST http://localhost:8200/v1/auth/userpass/users/alfredo
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "password": "toledano",
+  "policies": "kv-policy"
+}
+###
+
+# Policies
+## 1.List policies
+GET http://localhost:8200/v1/sys/policy
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+###
+
+## 2.Read policy
+GET http://localhost:8200/v1/sys/policy/{{PolicyName}}
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+###
+
+## 3.Create/Update policy
+POST http://localhost:8200/v1/sys/policy/kv-policy
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "policy": "path \"kv/data/automation\" {capabilities = [\"read\"]}"
+}
+###
