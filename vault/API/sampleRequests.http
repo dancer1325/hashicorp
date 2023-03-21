@@ -50,3 +50,21 @@ Content-Type: application/json
   "role_id": {{RoleId}},
   "secret_id": {{SecretId}}
 }
+###
+
+# Secret engine
+## Create a secret using KV version1 named "creds"
+POST http://localhost:8200/v1/secret/data/creds
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "data": {"password": "my-long-password"}
+}
+###
+
+## Get a secret
+GET http://localhost:8200/v1/secret/data/creds
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
