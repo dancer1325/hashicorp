@@ -1,6 +1,21 @@
 * Auth
   * `vault auth list`
     * List all the enabled Auth Methods
+  * `vault auth enable okta`
+    * Enable okta auth method, in the path 'okta'
+    * `vault auth enable -path=anypath okta`
+      * Enable okta in a custom path
+    * `vault auth enable -description=DescriptionToAdd okta`
+      * Enable and add some description.
+    * `vault auth enable -path=anypathTwo -description=DescriptionToAdd okta`
+      * Enable okta in a custom path, adding a description 
+  * `vault auth disable okta`
+    * Disable okta auth method
+  * `vault auth tune -default-lease-ttl=24h anypath`
+    * Modify some property of the auth method
+    * Problem:
+      * Problem1: "Error tuning auth method"
+    
 
 * Login
   * userpass
