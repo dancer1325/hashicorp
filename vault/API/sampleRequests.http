@@ -26,6 +26,9 @@ GET http://localhost:8200/v1/auth/approle/role/my-role/role-id
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
 
+> {%
+    client.global.set("RoleId", response.body.valueOf("data.role_id"));
+%}
 ###
 
 ## Create a new secret under the role
@@ -33,3 +36,17 @@ POST http://localhost:8200/v1/auth/approle/role/my-role/secret-id
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
 
+> {%
+    client.global.set("SecretId", response.body.valueOf("data.secret_id"));
+%}
+###
+
+## Authenticate
+## TODO: Fix it
+POST http://localhost:8200/v1/auth/approle/login
+Content-Type: application/json
+
+{
+  "role_id": {{RoleId}},
+  "secret_id": {{SecretId}}
+}
