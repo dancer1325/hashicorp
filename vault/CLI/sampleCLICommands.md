@@ -19,10 +19,12 @@
 * List
   * `vault list auth/approle/role`
     * List the existing roles under approle
+  * `vault list auth/userpass/users`
+    * List the existing users under userpass
 
 * Login
-  * userpass
-    * `vault login -method=userpass username=alfredo`
+  * `vault login -method=userpass username=alfredo`
+    * Login via userpass with alfredo user
 
 * Policy
   * `vault policy list`
@@ -35,6 +37,8 @@
     * Read alfredo role's role-id
   * `vault read auth/okta/config`
     * Read okta configuration
+  * `vault read auth/userpass/users/alfredo`
+    * Read the alfredo user
 
 * Write
   * `vault write auth/userpass/users/alfredo password=toledano policies=kv-policy`
