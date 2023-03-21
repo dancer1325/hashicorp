@@ -16,6 +16,9 @@
     * Problem:
       * Problem1: "Error tuning auth method"
     
+* List
+  * `vault list auth/approle/role`
+    * List the existing roles under approle
 
 * Login
   * userpass
@@ -27,6 +30,10 @@
     * Read kv-policy
       * If the user whom we have logged, hasn't got permissions for some path --> get 403
 
+* Read
+  * `vault read auth/approle/role/alfredo/role-id`
+    * Read alfredo role's role-id
+
 * Write
   * `vault write auth/userpass/users/alfredo password=toledano policies=kv-policy`
     * Attach a policy to a user based on userpass auth method
@@ -37,3 +44,11 @@
       * "name" is the name of the userpass
       * "canonical_id" is the id get, creating the entity
       * "mount_accessor" is the userpass' accessor
+  * `vault write auth/approle/role/alfredo policies=alfredoPolicy token_ttl=20m`
+    * Create a role which will have certain policy.
+      * "alfredo" is the name of the role.
+      * "alfredoPolicy" is the name of the policy.
+  * `vault write -force auth/approle/role/alfredo/secret-id`
+    * Generate a secret-id for the alfredo role
+  * `vault write auth/approle/login role_id=RoleIdPreviouslyGenerated secret_id=SecretIdPreviouslyGenerated`
+    * Login in Vault, using role_id (with _, different to - for generating) and secret_id (with _, different to - for generating)
