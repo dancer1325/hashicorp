@@ -79,6 +79,12 @@
     * List the enabled secrets engines. 
       * If it's executed in Raft Cluster without enough quorum --> it will not work 
 
+* Server
+  * `vault server -dev`
+    * Run Vault in dev mode. Not valid for production purposes
+    * `vault server -dev &`
+      * & to run in background
+
 * Token
   * `vault token create -policy='kv-policy'`
     * Create a token, attaching a policy and the default policy
