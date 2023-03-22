@@ -15,6 +15,14 @@
     * Modify some property of the auth method
     * Problem:
       * Problem1: "Error tuning auth method"
+
+* KV
+  * `vault kv get Key`
+    * Retrieve K/V secrets engine for Key
+  * `vault kv list Path`
+    * List all the K/V secrets under the Path
+  * `vault kv put Path Key=Value`
+    * Update an KV's entry
     
 * List
   * `vault list auth/approle/role`
@@ -34,7 +42,7 @@
   * `vault policy fmt PolicyFile`
     * Format the policy
   * `vault policy write PolicyNameToGive PolicyFile`
-    * Create a Vault policy
+    * Create/Update a Vault policy
 
 * Read
   * `vault read auth/approle/role/alfredo/role-id`
@@ -43,6 +51,10 @@
     * Read okta configuration
   * `vault read auth/userpass/users/alfredo`
     * Read the alfredo user
+
+* Token
+  * `vault token create -policy='kv-policy'`
+    * Create a token, attaching a policy and the default policy
 
 * Write
   * `vault write auth/userpass/users/alfredo password=toledano policies=kv-policy`
