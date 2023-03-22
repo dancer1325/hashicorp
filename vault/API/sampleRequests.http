@@ -125,6 +125,7 @@ Content-Type: application/json
 ###
 
 ## 3.Create/Update policy
+## Defining the policy via .json file
 POST http://localhost:8200/v1/sys/policy/kv-policy
 X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
