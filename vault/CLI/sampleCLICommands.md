@@ -31,6 +31,10 @@
   * `vault policy read kv-policy`
     * Read kv-policy
       * If the user whom we have logged, hasn't got permissions for some path --> get 403
+  * `vault policy fmt PolicyFile`
+    * Format the policy
+  * `vault policy write PolicyNameToGive PolicyFile`
+    * Create a Vault policy
 
 * Read
   * `vault read auth/approle/role/alfredo/role-id`
