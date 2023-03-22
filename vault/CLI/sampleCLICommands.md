@@ -15,6 +15,10 @@
     * Modify some property of the auth method
     * Problem:
       * Problem1: "Error tuning auth method"
+  * `vault auth enable approle`
+    * Enable approle auth method
+  * `vault auth enable -path=local userpass`
+    * Enable approle auth method
 
 * KV
   * `vault kv get Key`
@@ -29,6 +33,8 @@
     * List the existing roles under approle
   * `vault list auth/userpass/users`
     * List the existing users under userpass
+  * `vault list auth/token/accessors`
+    * List all the accessors --> number of existing tokens
 
 * Login
   * `vault login -method=userpass username=alfredo`
@@ -55,10 +61,20 @@
 * Token
   * `vault token create -policy='kv-policy'`
     * Create a token, attaching a policy and the default policy
+  * `vault token lookup -accessor TokenAccessor`
+    * Check token's properties
+  * `vault token revoke RootTokenGenerated`
+    * Revoke the token
+  * `vault token revoke -accessor TokenAccessor`
+    * Revoke the token
+  * `vault token create -policy=PolicyToAssign -use-limit=1`
+    * Create a token, assign a policy, limiting its use to 1 time
 
 * Write
   * `vault write auth/userpass/users/alfredo password=toledano policies=kv-policy`
     * Attach a policy to a user based on userpass auth method
+  * `vault write auth/userpass/users/alfredo password=toledano token_ttl=8h policies=kv-policy`
+    * Same as previously, but also adjusting token_ttl property
   * `vault write identity/entity name="Alfredo Toledano" policies=kv-policy`
     * Create an entity, attaching a policy
   * `vault write identity/entity-alias name="Alfredo" canonical_id="c79593bd-062c-5fe3-ad95-a0f6630d957b" mount_accessor="auth_userpass_9160f822"`
@@ -70,10 +86,14 @@
     * Create a role which will have certain policy.
       * "alfredo" is the name of the role.
       * "alfredoPolicy" is the name of the policy.
+  * `vault write auth/approle/role/engineering token_ttl=24h token_max_ttl=300h`
+    * Update the role engineering with certain attributes
   * `vault write -force auth/approle/role/alfredo/secret-id`
     * Generate a secret-id for the alfredo role
-  * `vault write auth/approle/login role_id=RoleIdPreviouslyGenerated secret_id=SecretIdPreviouslyGenerated`
+  * `vault write auth/approle/login role_id=RoleIdPreviouslyGenerated secret_id=SecretIdPreviouslyGenerated` 
     * Login in Vault, using role_id (with _, different to - for generating) and secret_id (with _, different to - for generating)
+  * `vault write auth/approle/login role_id=RoleIdPreviouslyGenerated secret_id=SecretIdPreviouslyGenerated | jq -r '.auth.client_token' > PathInWhichToStore`
+    * Login as previously and formatting to json and writing in a file, the .auth.client_token response
   * `vault write auth/okta/config base_url="okta.com" org_name="guaperas" api_token="OktaTokenCreated"`
     * Configure okta authentication.
       * "base_url" is normally okta.com
