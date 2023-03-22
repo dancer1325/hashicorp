@@ -40,6 +40,20 @@
   * `vault login -method=userpass username=alfredo`
     * Login via userpass with alfredo user
 
+* Operator
+  * Group subcommands for operators interacting with Vault
+  * `vault operator raft subcommands`
+    * Groups subcommands for operators to manage the Integrated Storage Raft backend
+    * `vault operator raft list-peers`
+      * List set of unsealed peers in the Raft cluster
+    * `vault operator raft join LeaderVaultNodeApiAddr`
+      * Run in a Vault node to join ass peer of the Raft cluster
+        * It also initializes the Vault node
+  * `vault operator unseal`
+    * Unseal a Vault server, providing unseal keys
+  * `vault operator step-down`
+    * Step down an active Vault node within an HA cluster, to pass to standBy and leaving to be leader Vault node.
+
 * Policy
   * `vault policy list`
   * `vault policy read kv-policy`
@@ -57,6 +71,13 @@
     * Read okta configuration
   * `vault read auth/userpass/users/alfredo`
     * Read the alfredo user
+
+* Secrets
+  * `vault secrets enable aws`
+    * Enable AWS secrets engine
+  * `vault secrets list`
+    * List the enabled secrets engines. 
+      * If it's executed in Raft Cluster without enough quorum --> it will not work 
 
 * Token
   * `vault token create -policy='kv-policy'`
