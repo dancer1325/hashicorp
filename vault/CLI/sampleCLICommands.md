@@ -53,6 +53,12 @@
     * Unseal a Vault server, providing unseal keys
   * `vault operator step-down`
     * Step down an active Vault node within an HA cluster, to pass to standBy and leaving to be leader Vault node.
+  * `vault operator generate-root`
+    * Create a root Token, based on unseal/recovery keys
+    * `vault operator generate-root -init`
+      * Initialize the process to create a root token
+    * `vault operator generate-root -otp=OTPValueGot -decode=EncryptedRootToken`
+      * Decrypt the encrypted root token
 
 * Policy
   * `vault policy list`
@@ -86,8 +92,19 @@
       * & to run in background
 
 * Token
+  * `vault token create`
+    * Create a new root token, from another one
   * `vault token create -policy='kv-policy'`
     * Create a token, attaching a policy and the default policy
+  * `vault token create -policy='kv-policy' -period=24h`
+    * Create a periodic token, attaching a policy and the default policy
+      * Periodic, because max_ttl isn't specified
+  * `vault token create -policy='kv-policy' -ttl=60m`
+    * Create a token, attaching a policy and the default policy, and specifying ttl
+  * `vault token create -policy='kv-policy' -use-limit=2`
+    * Create a token use limits, attaching a policy and the default policy
+  * `vault token create -policy='kv-policy' -orphan`
+    * Create a orphan token, attaching a policy and the default policy
   * `vault token lookup -accessor TokenAccessor`
     * Check token's properties
   * `vault token revoke RootTokenGenerated`
@@ -96,12 +113,14 @@
     * Revoke the token
   * `vault token create -policy=PolicyToAssign -use-limit=1`
     * Create a token, assign a policy, limiting its use to 1 time
+  * `vault token lookup TokenValue`
+    * Display information about the token
 
 * Write
   * `vault write auth/userpass/users/alfredo password=toledano policies=kv-policy`
     * Attach a policy to a user based on userpass auth method
-  * `vault write auth/userpass/users/alfredo password=toledano token_ttl=8h policies=kv-policy`
-    * Same as previously, but also adjusting token_ttl property
+  * `vault write auth/userpass/users/alfredo password=toledano token_ttl=8h token_max_ttl=24h policies=kv-policy`
+    * Same as previously, but also adjusting token_ttl and token_max_ttl properties
   * `vault write identity/entity name="Alfredo Toledano" policies=kv-policy`
     * Create an entity, attaching a policy
   * `vault write identity/entity-alias name="Alfredo" canonical_id="c79593bd-062c-5fe3-ad95-a0f6630d957b" mount_accessor="auth_userpass_9160f822"`
