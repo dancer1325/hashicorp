@@ -35,6 +35,8 @@
     * List the existing users under userpass
   * `vault list auth/token/accessors`
     * List all the accessors --> number of existing tokens
+  * `vault list auth/token/accessors`
+    * List all the existing Token accessors
 
 * Login
   * `vault login -method=userpass username=alfredo`
@@ -94,13 +96,15 @@
 * Token
   * `vault token create`
     * Create a new root token, from another one
+  * `vault token create -type=batch`
+    * Create a batch token (By default a service token would be created)
   * `vault token create -policy='kv-policy'`
     * Create a token, attaching a policy and the default policy
   * `vault token create -policy='kv-policy' -period=24h`
     * Create a periodic token, attaching a policy and the default policy
       * Periodic, because max_ttl isn't specified
-  * `vault token create -policy='kv-policy' -ttl=60m`
-    * Create a token, attaching a policy and the default policy, and specifying ttl
+  * `vault token create -policy='kv-policy' -ttl=60m -explicit-max-ttl=24h`
+    * Create a token, attaching a policy and the default policy, and specifying ttl and max_ttl
   * `vault token create -policy='kv-policy' -use-limit=2`
     * Create a token use limits, attaching a policy and the default policy
   * `vault token create -policy='kv-policy' -orphan`
