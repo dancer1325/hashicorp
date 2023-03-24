@@ -21,12 +21,26 @@
     * Enable approle auth method
 
 * KV
-  * `vault kv get Key`
+  * `vault kv get -format=json Path`
     * Retrieve K/V secrets engine for Key
   * `vault kv list Path`
     * List all the K/V secrets under the Path
   * `vault kv put Path Key=Value`
-    * Update an KV's entry
+    * Update/Create an KV's entry
+  * `vault kv enable-versioning Path`
+    * Upgrade from KV v1 to KV v2
+  * `vault kv rollback -version=VersionToRollback Path`
+    * Rollback to a specific version
+  * `vault kv patch Path Key=ValueToUpdate`
+    * Update just that Key, without deleting the rest of entries
+  * `vault kv develete Path`
+    * Delete the secret.
+      * If you use KV v1 ⟶ You can return it from the backend system
+      * If you use KV v2 ⟶ You can return metadata (!=data). But data can be returned via undelete / rollback
+  * `vault kv destroy Path`
+    * Destroy / Delete data (!=metadata) forever
+  * `vault kv metadata delete Path`
+    * 
     
 * List
   * `vault list auth/approle/role`
@@ -79,13 +93,23 @@
     * Read okta configuration
   * `vault read auth/userpass/users/alfredo`
     * Read the alfredo user
+  * `vault read SecretEngine/creds/VaultRole`
+    * Generate dynamic credentials to the Secret Engine
 
 * Secrets
   * `vault secrets enable aws`
-    * Enable AWS secrets engine
+    * Enable AWS secrets engine at the default path
+    * `vault secrets enable aws -path=PathInWhichSecretsEngineIsAccesible aws`
+      * Enable AWS secrets engine in a specific path
+    * `vault secrets enable -description="Add description about the secrets engine" aws`
+      * Enable it, adding some description
   * `vault secrets list`
     * List the enabled secrets engines. 
-      * If it's executed in Raft Cluster without enough quorum --> it will not work 
+      * If it's executed in Raft Cluster without enough quorum --> it will not work
+    * `vault secrets list -detailed`
+      * Give additional information
+  * `vault secrets tune -default-lease-ttl=72h pki`
+    * Modify some property of the secrets engine
 
 * Server
   * `vault server -dev`
@@ -150,3 +174,7 @@
       * "org_name" is different for each organization, and it's displayed in your okta account
   * `vault write auth/okta/users/YourAccountRelatedToOkta policies=alfredoOktaPolicy`
     * Create alfredo user related to the okta auth with the policy alfredoOktaPolicy
+  * `vault write aws/config/root access_key=Value secret_key=Value region=RegionValue`
+    * Give access to Vault to AWS
+  * `vault write database/config/DatabaseNameGiven plugin_name=NamePlugin connection_url=DDBBPort allowed_roles=Roles username=UserName password=Password`
+    * Give access to Vault to a database
