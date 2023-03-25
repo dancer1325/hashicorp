@@ -134,3 +134,36 @@ Content-Type: application/json
   "policy": "path \"kv/data/automation\" {capabilities = [\"read\"]}"
 }
 ###
+
+# KV
+## 1.Enable K/V secrets
+POST http://localhost:8200/v1/sys/mounts/apps/artifactory
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "type": "kv",
+  "options": {
+    "version": "2"
+  }
+}
+###
+
+## 2.Update / Create K/V secrets
+POST http://localhost:8200/v1/secret/data/apps/artifactory
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+
+{
+  "data": {
+    "name": "Alfredo"
+  }
+}
+###
+
+## 3.Retrieve K/V secrets
+GET http://localhost:8200/v1/secret/data/apps/artifactory
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+###
+
