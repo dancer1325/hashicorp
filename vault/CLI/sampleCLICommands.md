@@ -128,6 +128,8 @@
     * `vault read database/creds/VaultRoleName`
   * `vault read database/config/DatabaseNameGiven`
     * Read DDBB's configuration
+  * `vault read totp/code/aws`
+    * Read TOTP's code
 
 * Secrets
   * `vault secrets enable aws`
@@ -264,5 +266,7 @@
     * Generate a certificate and store it in a file
   * `vault write pki/config/urls issuing_certificates="$VAULT_ADDR/v1/pki/ca" crl_distribution_points="$VAULT_ADDR/v1/pki/crl"`
     * Configure CA and CRL URLs
+  * `vault write totp/keys/aws url="UrlGenerated""`
+    * Generate a TOTP key
       `
       
