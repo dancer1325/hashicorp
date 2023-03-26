@@ -260,3 +260,9 @@
     * `vault write ... -format=json`
     * `vault write ... | tee -a PathToStoreFormatedToJson`
     * `vault write ... | jq -r 'SpecificPropertyToStore' > PathInWhichToStore` 
+  * `vault write -field=certificate pki/root/generate/internal common_name="example.com" issuer_name="root-2022" ttl=87600h > CertificateName.crt`
+    * Generate a certificate and store it in a file
+  * `vault write pki/config/urls issuing_certificates="$VAULT_ADDR/v1/pki/ca" crl_distribution_points="$VAULT_ADDR/v1/pki/crl"`
+    * Configure CA and CRL URLs
+      `
+      
