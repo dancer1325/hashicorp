@@ -125,6 +125,9 @@
   * `vault read SecretEngine/creds/VaultRole`
     * Generate dynamic credentials to the Secret Engine
     * `vault read aws/creds/VaultRoleName`
+    * `vault read database/creds/VaultRoleName`
+  * `vault read database/config/DatabaseNameGiven`
+    * Read DDBB's configuration
 
 * Secrets
   * `vault secrets enable aws`
@@ -139,6 +142,8 @@
     * Enable KV version 1
   * `vault secrets enable -version=2 kv` / `vault secrets enable kv-v2`
     * Enable KV version 2
+  * `vault secrets enable database`
+    * Enable Database Secrets Engine
   * `vault secrets list`
     * List the enabled secrets engines. 
       * If it's executed in Raft Cluster without enough quorum --> it will not work
@@ -224,6 +229,15 @@
     * Get dynamic credentials if you have authenticated via assumed_role
   * `vault write database/config/DatabaseNameGiven plugin_name=NamePlugin connection_url=DDBBPort allowed_roles=Roles username=UserName password=Password`
     * Give access to Vault to a database
+    * `vault write database/config/DatabaseNameGiven plugin_name=mysql-rds-database-plugin connection_url=DDBBPort allowed_roles=Roles username=UserName password=Password`
+      * Give access to Vault to RDS
+  * `vault write database/roles/NameOfTheVaultRoleToCreate db_name=DatabaseNameGiven creation_statements="SQLToRun"`
+    * Create a role with certain permissions to interact with the DDBB
+    * `vault write database/roles/hcvop-role db_name=mysql01 default_ttl=1h max_ttl=4h creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT SELECT ON hcvop.* TO '{{name}}'@'%';"
+      Success! Data written to: database/roles/hcvop-role`
+      * Example of role creation
+  * `vault write -f database/rotate-root/DatabaseNameGiven`
+    * Rotate credentials used previously to connect
   * `vault write -f transitOrPathInWhichIsEnabled/keys/NameOfTheEncriptionKey type=EncryptionKeyType`
     * Create an encryption key using Transit Secrets Engine, specifying the type
     * `vault write -f transitOrPathInWhichIsEnabled/keys/NameOfTheEncriptionKey/rotate`
