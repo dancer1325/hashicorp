@@ -167,3 +167,10 @@ X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
 ###
 
+# Sys
+## 1.List auth methods
+GET http://localhost:8200/v1/sys/auth
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+###
+
