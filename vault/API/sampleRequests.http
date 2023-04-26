@@ -174,3 +174,9 @@ X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
 ###
 
+## 2.List enabled secrets engines
+GET http://localhost:8200/v1/sys/mounts
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+###
+
