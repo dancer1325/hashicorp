@@ -180,3 +180,9 @@ X-VAULT-TOKEN: {{XVaultToken}}
 Content-Type: application/json
 ###
 
+# Tokens
+## 1.Lookup a Token (Self)
+GET http://localhost:8200/v1/auth/token/lookup-self
+X-VAULT-TOKEN: {{XVaultToken}}
+Content-Type: application/json
+###
